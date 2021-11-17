@@ -1,0 +1,28 @@
+{
+  "name": "team-tracker",
+  "version": "1.0.0",
+  "description": "## Description This page was created to help a company keep track of there employ's information.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/darrikcrawford/team-tracker.git"
+  },
+  "author": "Darrikcrawford",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/darrikcrawford/team-tracker/issues"
+  },
+  "homepage": "https://github.com/darrikcrawford/team-tracker#readme",
+  "devDependencies": {
+    "jest": "^27.3.1"
+  },
+  "dependencies": {
+    "inquirer": "^8.2.0"
+  }
+}
