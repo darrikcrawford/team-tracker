@@ -15,8 +15,8 @@ const writeFile = fileContent => {
                 ok: true,
                 message: 'File successfully created!'
             });
-        })
-    })
+        }):
+    }):
 }
 
 const copyFile = () => {
