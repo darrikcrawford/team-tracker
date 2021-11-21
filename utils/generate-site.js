@@ -13,7 +13,7 @@ const writeFile = fileContent => {
             // If there are no errors, resolve Promise and send the data
             resolve({
                 ok: true,
-                message: 'File successfully created!'
+                message: 'File created!'
             });
         });
     });
@@ -29,7 +29,7 @@ const copyFile = () => {
             
             resolve({
                 ok: true,
-                message: 'File copied successfully!'
+                message: 'File copied!'
             }); 
         });
     });
