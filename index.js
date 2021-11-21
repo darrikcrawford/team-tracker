@@ -1,20 +1,21 @@
 const inquirer = require('inquirer');
 
-// employee classes
-const Engineer = require('./lib/Engineer')
+// employee class import
+const Engineer = require('./lib/Engineer');
 const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
-const generatePage = require('./src/page-template');
 const {writeFile, copyFile} = require('./utils/generate-site');
+const { SIGTERM } = require('constants');
+
+let ifManager = false; 
 
 // Inquirer prompt for employee information
-promptUser = () => {
-    return inquirer
-        .prompt ([
+const promptInput = () => {
+    return inquirer.prompt ([
             {
                 type: 'list',
                 name: 'role', 
-                choices: ['Intern', 'Engineer', 'Manager',] : ifManager ? ['Engineer', 'Intern']
+                choices: ifManager ? ['Engineer', 'Intern'] : ['Intern', 'Engineer', 'Manager',]
             },
             {
                 type: 'input',
@@ -24,7 +25,7 @@ promptUser = () => {
                     if (nameInput) {
                         return true;
                     } else {
-                        console.log(`Employee's name is required! Please enter name.`)
+                        console.log(`Must enter employee's name!`)
                         return false;
                     }
                 }
@@ -37,7 +38,7 @@ promptUser = () => {
                     if (idInput) {
                         return true;
                     } else {
-                        console.log(`Employee's ID number is required!`)
+                        console.log(`Must enter employee's ID number!`)
                         return false
                     }
                 }
@@ -50,15 +51,71 @@ promptUser = () => {
                     if (emailInput) {
                         return true;
                     } else {
-                        console.log(`Employee's email number is required!`);
+                        console.log(`Must enter employee's email!`);
                         return false;
                     }
                 }
             },
             {
-                type: 'list',
-                name: 'role', 
-                choices: ifManager ? ['Engineer', 'Intern'] : ['Manager', 'Engineer', 'Intern']
+                type: 'input',
+                name: 'school',
+                message: `Please enter the name of the intern's school?`,
+                when:  ({ role }) => {
+                    if(role === 'Intern') {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                },
+                validate: schoolInput => {
+                    if(schoolInput) {
+                        return true; 
+                    } else {
+                        console.log(`Must enter the intern's school`)
+                    }
+                }
+            },
+            {
+                type: 'input',
+                name: 'github',
+                message: `Please enter the engineer's github information?`,
+                when: ({ role }) => {
+                    if(role === 'Engineer') {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                },
+                validate: githubInput => {
+                    if(githubInput) {
+                        return true;
+                    } else {
+                        console.log(`Must enter the engineer's github.`);
+                        return false;
+                    }
+                }
+            },
+            {
+                type: 'input',
+                name: 'officeNumber',
+                message: `Please enter the manager's office number?`,
+                when: ({ role }) => {
+                    if(role === 'Manager') {
+                        ifManager = true;
+                        return true;
+                    } else {
+                        return false;
+                    }
+                },
+                validate: numberInput => {
+                    if(numberInput) {
+                        return true;
+                    } else {
+                        console.log(`Must enter manager's office number!`);
+                    }
+                }
             },
         ])
 }
+
+promptInput();
